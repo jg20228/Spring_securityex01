@@ -46,8 +46,7 @@ public class IndexController {
 		
 		//
 		String rawPassword = user.getPassword();
-		BCryptPasswordEncoder a = new BCryptPasswordEncoder();
-		String encPassword =a.encode(rawPassword);
+		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		//
 		
