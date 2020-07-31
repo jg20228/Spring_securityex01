@@ -1,15 +1,23 @@
 package com.cos.securityex01.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.cos.securityex01.model.User;
+import com.cos.securityex01.repository.UserRepository;
 
 @Controller
 public class IndexController {
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@GetMapping({"/",""})
 	public @ResponseBody String index() {
@@ -35,6 +43,15 @@ public class IndexController {
 	@PostMapping("/joinProc")
 	public String joinProc(User user) {
 		System.out.println("회원가입 진행"+user.toString());
+		
+		//
+		String rawPassword = user.getPassword();
+		BCryptPasswordEncoder a = new BCryptPasswordEncoder();
+		String encPassword =a.encode(rawPassword);
+		user.setPassword(encPassword);
+		//
+		
+		userRepository.save(user);
 		return "redirect:/";
 	}
 }
