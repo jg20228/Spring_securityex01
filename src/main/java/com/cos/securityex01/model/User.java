@@ -22,6 +22,7 @@ public class User {
 	private String username;
 	private String password;
 	private String email;
+	private String role; //ROLE_USER , ROLE_ADMIN
 	@CreationTimestamp //localdate가 나중에편함
 	private Timestamp timestamp;
 }
