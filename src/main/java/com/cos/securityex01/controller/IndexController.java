@@ -1,26 +1,28 @@
 package com.cos.securityex01.controller;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class IndexController {
 	
 	@GetMapping({"/",""})
-	public String index() {
+	public @ResponseBody String index() {
 		return "인덱스 페이지 입니다";
 	}
 	@GetMapping({"/user"})
-	public String user() {
+	public @ResponseBody String user() {
 		return "유저 페이지 입니다";
 	}
 	@GetMapping({"/admin"})
-	public String admin() {
+	public @ResponseBody String admin() {
 		return "어드민 페이지 입니다";
 	}
 	@GetMapping({"/login"})
 	public String login() {
-		return "로그인 페이지 입니다";
+		return "login";
 	}
 	
 }
