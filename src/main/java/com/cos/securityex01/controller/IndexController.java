@@ -2,8 +2,11 @@ package com.cos.securityex01.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cos.securityex01.model.User;
 
 @Controller
 public class IndexController {
@@ -24,5 +27,14 @@ public class IndexController {
 	public String login() {
 		return "login";
 	}
+	@GetMapping({"/join"})
+	public String join() {
+		return "join";
+	}
 	
+	@PostMapping("/joinProc")
+	public String joinProc(User user) {
+		System.out.println("회원가입 진행"+user.toString());
+		return "redirect:/";
+	}
 }

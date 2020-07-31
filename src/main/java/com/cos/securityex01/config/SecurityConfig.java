@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf().disable(); //csrf 비활성화, form에서 post요청시 주고 받는 토큰
 		http.authorizeRequests()
 			.antMatchers("/user/**","/admin/**")
 			.authenticated()
@@ -21,6 +22,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.and()
 			.formLogin()
 			.loginPage("/login")
-			.loginProcessingUrl("/loginProc");
+			.loginProcessingUrl("/loginProc")
+			.defaultSuccessUrl("/");
+		
+		
 	}
 }
