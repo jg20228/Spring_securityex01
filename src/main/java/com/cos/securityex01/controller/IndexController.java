@@ -3,6 +3,9 @@ package com.cos.securityex01.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -27,12 +30,24 @@ public class IndexController {
 	public @ResponseBody String index() {
 		return "인덱스 페이지 입니다";
 	}
+	
+	//@PostAuthorize("hasRole('ROLE_MANAGER')") 컨트롤 직후
+	//@PreAuthorize("hasRole('ROLE_USER')") 컨트롤 전
+	//@Secured("ROLE_MANAGER")
+	@GetMapping({"/manager"})
+	public @ResponseBody String manager() {
+		return "매니저 페이지 입니다.";
+	}
+	
+
+	
+	
 	@GetMapping({"/user"})
 	public @ResponseBody String user(@AuthenticationPrincipal PrincipalDetails principal) {
 		System.out.println(principal);
 		System.out.println(principal.getUser().getRole());
 		System.out.println(principal.getAuthorities());
-		return "유저 페이지 입니다";
+		return "유저 페이지 입니다 "+principal.getUser().getRole();
 	}
 	@GetMapping({"/admin"})
 	public @ResponseBody String admin() {
